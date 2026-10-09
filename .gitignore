@@ -38,3 +38,19 @@ dist/
 
 ### Local Secrets ###
 secrets.yaml
+*.env
+application-prod.yml
+application-prod.properties
+
+### Build Artifacts ###
+*.jar
+*.war
+*.bak
+*.tar.gz
+
+### Logs ###
+*.log
+logs/
+
+### Database (if deploy dir is versioned) ###
+mysql/data/
