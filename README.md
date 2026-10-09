@@ -19,19 +19,20 @@
 
 ```
 demo/
-├── src/main/java/com/feng/demo/
-│   ├── common/        # 统一响应 Result
-│   ├── config/        # WebConfig(拦截器注册)、OssProperties、MybatisConfig
-│   ├── controller/    # Emp、EmpExpr、Dept、Login、Upload 控制器
-│   ├── dto/           # 入参对象（record）
-│   ├── interceptor/   # LoginInterceptor（token 校验）
-│   ├── mapper/        # EmpMapper、EmpExprMapper、DeptMapper（注解 SQL）
-│   ├── pojo/          # 实体（Emp 为 @Data，Dept/EmpExpr 为 record）
-│   ├── service/       # 业务接口与实现
-│   ├── utils/         # JwtUtils
-│   └── vo/            # 出参对象
-├── src/main/resources/application.yaml   # 主配置（密钥已脱敏为 ${} 占位符）
-├── secrets.yaml       # 本地敏感配置（已被 .gitignore 忽略，勿提交）
+├── backend/            # Spring Boot 后端
+│   ├── src/main/java/com/feng/demo/
+│   │   ├── common/        # 统一响应 Result
+│   │   ├── config/        # WebConfig(拦截器注册)、OssProperties、MybatisConfig
+│   │   ├── controller/    # Emp、EmpExpr、Dept、Login、Upload 控制器
+│   │   ├── dto/           # 入参对象（record）
+│   │   ├── interceptor/   # LoginInterceptor（token 校验）
+│   │   ├── mapper/        # EmpMapper、EmpExprMapper、DeptMapper（注解 SQL）
+│   │   ├── pojo/          # 实体（Emp 为 @Data，Dept/EmpExpr 为 record）
+│   │   ├── service/       # 业务接口与实现
+│   │   ├── utils/         # JwtUtils
+│   │   └── vo/            # 出参对象
+│   ├── src/main/resources/application.yaml   # 主配置（密钥已脱敏为 ${} 占位符）
+│   └── secrets.yaml       # 本地敏感配置（已被 .gitignore 忽略，勿提交）
 └── frontend/          # Vue3 + Vite 前端
 ```
 
@@ -49,7 +50,7 @@ ALTER TABLE emp ADD COLUMN original_name VARCHAR(255) COMMENT 'OSS 原始文件�
 
 ### 2. 配置密钥（secrets.yaml）
 
-仓库内密钥已脱敏，`application.yaml` 通过 `spring.config.import: optional:file:./secrets.yaml` 引入占位符。克隆后需在项目根目录创建 `secrets.yaml`：
+仓库内密钥已脱敏，`application.yaml` 通过 `spring.config.import: optional:file:./secrets.yaml` 引入占位符。克隆后需在 `backend/` 目录下创建 `secrets.yaml`：
 
 ```yaml
 ZXYF_DB_PASSWORD: <数据库密码>
@@ -63,6 +64,7 @@ ZXYF_OSS_ACCESS_KEY_SECRET: <OSS AccessKeySecret>
 ### 3. 启动后端
 
 ```bash
+cd backend
 # Windows
 mvnw.cmd spring-boot:run
 # 或打包
@@ -70,7 +72,7 @@ mvnw.cmd install -DskipTests
 java -jar target/demo-0.0.1-SNAPSHOT.jar
 ```
 
-默认端口 **8090**。
+默认端口 **8090**（需在 `backend/` 目录下运行，以便加载 `./secrets.yaml`）。
 
 ### 4. 启动前端
 
