@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Release
 
 on:
   push:
@@ -6,8 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write    # 必需，允许创建 Release
 
     steps:
       - name: Checkout code
@@ -36,41 +38,30 @@ jobs:
       - name: Build frontend
         working-directory: ./frontend
         run: |
-          npm install
+          npm ci
           npm run build
 
-      # ===== 上传后端 jar =====
-      - name: Copy backend jar to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "backend/target/zxyf-sys-0.0.1-SNAPSHOT.jar"
-          target: "/opt/container-deploy/backend/"
-          strip_components: 2    # 去掉 backend/target/ 两层前缀
+      # ===== 打包构建产物 =====
+      - name: Prepare artifacts
+        run: |
+          mkdir -p release
+          cp backend/target/zxyf-sys-0.0.1-SNAPSHOT.jar release/
+          cd frontend && tar -czf ../release/frontend-dist.tar.gz dist/
+          cd ..
+          ls -lh release/
 
-      # ===== 上传前端 dist =====
-      - name: Copy frontend to server
-        uses: appleboy/scp-action@v0.1.7
+      # ===== 创建 GitHub Release =====
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "frontend/dist/*"
-          target: "/opt/container-deploy/nginx/html/"
-          strip_components: 1
-
-      # ===== 执行服务器端部署脚本 =====
-      - name: Execute deploy script
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            chmod +x /opt/container-deploy/deploy.sh
-            /opt/container-deploy/deploy.sh
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          body: |
+            自动构建版本 v${{ github.run_number }}
+            Commit: ${{ github.sha }}
+            触发: ${{ github.event.head_commit.message }}
+          files: |
+            release/zxyf-sys-0.0.1-SNAPSHOT.jar
+            release/frontend-dist.tar.gz
+          draft: false
+          prerelease: false
