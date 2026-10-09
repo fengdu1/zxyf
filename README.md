@@ -20,7 +20,7 @@
 ```
 demo/
 ├── backend/            # Spring Boot 后端
-│   ├── src/main/java/com/feng/demo/
+│   ├── src/main/java/com/feng/zxyf/
 │   │   ├── common/        # 统一响应 Result
 │   │   ├── config/        # WebConfig(拦截器注册)、OssProperties、MybatisConfig
 │   │   ├── controller/    # Emp、EmpExpr、Dept、Login、Upload 控制器
