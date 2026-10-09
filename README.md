@@ -40,13 +40,7 @@ demo/
 
 ### 1. 准备数据库
 
-执行以下 DDL 建表：`dept`（部门）、`emp`（员工）、`emp_expr`（工作经历）。
-
-`emp` 除文档标准字段外，额外含 `original_name`（OSS 原始文件名，用于下载时还原文件名）：
-
-```sql
-ALTER TABLE emp ADD COLUMN original_name VARCHAR(255) COMMENT 'OSS 原始文件名' AFTER image;
-```
+执行初始化脚本建库建表：`backend/src/main/resources/sql/init.sql`（包含 `dept` 部门、`emp` 员工、`emp_expr` 工作经历三张表及种子数据，`emp` 表已含 `original_name` 字段）。
 
 ### 2. 配置密钥（secrets.yaml）
 
