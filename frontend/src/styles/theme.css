@@ -1,0 +1,100 @@
+/* ===== 主题变量：默认 = 冷色调 ===== */
+:root {
+  /* 文本 */
+  --text-strong: #3f4c6b;
+  --text-mid: #6a7a99;
+  --text-soft: #97a5bf;
+
+  /* 卡片 */
+  --card-bg: #ffffff;
+  --card-border: #e7eef8;
+  --dash-border: #d4e2f5;
+
+  /* 背景 */
+  --body-bg: #eef3fb;
+  --main-bg: radial-gradient(circle at 90% 0%, rgba(143, 199, 255, 0.32), transparent 42%),
+    radial-gradient(circle at 8% 100%, rgba(186, 177, 255, 0.26), transparent 42%), #f3f7fd;
+
+  /* 顶部导航 */
+  --header-grad: linear-gradient(90deg, #d7ecff 0%, #dfdcfa 100%);
+  --header-shadow: rgba(92, 139, 234, 0.18);
+  --hover-soft: rgba(255, 255, 255, 0.65);
+
+  /* 标题 & 头像 */
+  --title-grad: linear-gradient(135deg, #5f93ee, #9187e6);
+  --avatar-shadow: rgba(92, 139, 234, 0.45);
+
+  /* 品牌色 */
+  --brand: #5c8bea;
+  --brand-deep: #3f6fd6;
+
+  /* 菜单 */
+  --hover-bg: #ecf3ff;
+  --active-bg: linear-gradient(135deg, #cfe2ff, #e0dbff);
+  --active-shadow: rgba(92, 139, 234, 0.3);
+
+  /* 首页横幅 */
+  --hero-grad: linear-gradient(120deg, #d3e8ff, #dcd9ff);
+  --hero-shadow: rgba(92, 139, 234, 0.18);
+
+  /* 分组条 */
+  --bar-grad: linear-gradient(180deg, #6da0f0, #47d1f0);
+
+  /* Element Plus 主色 */
+  --el-color-primary: #5c8bea;
+  --el-color-primary-light-3: #7ba3f0;
+  --el-color-primary-light-5: #9dbbf5;
+  --el-color-primary-light-7: #bfd2f9;
+  --el-color-primary-light-8: #cddbfb;
+  --el-color-primary-light-9: #eaf0fd;
+  --el-color-primary-dark-2: #4670c9;
+
+  /* 菜单文字 */
+  --menu-text: #5b6685;
+  --menu-active-text: #3f6fd6;
+}
+
+/* ===== 主题切换：清新动漫·暖色 ===== */
+html.theme-warm {
+  --text-strong: #5b4a63;
+  --text-mid: #7a6a86;
+  --text-soft: #a493ad;
+
+  --card-bg: #ffffff;
+  --card-border: #f3ecf4;
+  --dash-border: #ead9ee;
+
+  --body-bg: #f5f7fb;
+  --main-bg: radial-gradient(circle at 90% 0%, rgba(201, 231, 255, 0.35), transparent 42%),
+    radial-gradient(circle at 10% 100%, rgba(255, 207, 224, 0.3), transparent 42%), #f7f9fc;
+
+  --header-grad: linear-gradient(90deg, #ffd6e7 0%, #c8e9ff 100%);
+  --header-shadow: rgba(255, 141, 171, 0.2);
+  --hover-soft: rgba(255, 255, 255, 0.6);
+
+  --title-grad: linear-gradient(135deg, #f783ac, #7ec8f5);
+  --avatar-shadow: rgba(247, 131, 172, 0.4);
+
+  --brand: #f783ac;
+  --brand-deep: #ee6a96;
+
+  --hover-bg: #fff0f5;
+  --active-bg: linear-gradient(135deg, #ffd3e2, #c9e7ff);
+  --active-shadow: rgba(247, 131, 172, 0.25);
+
+  --hero-grad: linear-gradient(120deg, #ffd3e2, #c9e7ff);
+  --hero-shadow: rgba(247, 131, 172, 0.18);
+
+  --bar-grad: linear-gradient(180deg, #ff8fab, #7ec8f5);
+
+  --el-color-primary: #f783ac;
+  --el-color-primary-light-3: #f99bb9;
+  --el-color-primary-light-5: #fbbccf;
+  --el-color-primary-light-7: #fdd6e2;
+  --el-color-primary-light-8: #fee1ea;
+  --el-color-primary-light-9: #fff1f5;
+  --el-color-primary-dark-2: #ee6a96;
+
+  --menu-text: #6a788c;
+  --menu-active-text: #ee6a96;
+}
