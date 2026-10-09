@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.feng</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>zxyf-sys</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>demo</description>
+    <name>zxyf-sys</name>
+    <description>智学云帆-教学管理系统</description>
     <url/>
     <licenses>
         <license/>

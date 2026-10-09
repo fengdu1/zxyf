@@ -1,6 +1,6 @@
 spring:
   application:
-    name: demo
+    name: zxyf-sys
   config:
     import: optional:file:./secrets.yaml
   datasource:

@@ -63,7 +63,7 @@ cd backend
 mvnw.cmd spring-boot:run
 # 或打包
 mvnw.cmd install -DskipTests
-java -jar target/demo-0.0.1-SNAPSHOT.jar
+java -jar target/zxyf-sys-0.0.1-SNAPSHOT.jar
 ```
 
 默认端口 **8090**（需在 `backend/` 目录下运行，以便加载 `./secrets.yaml`）。
