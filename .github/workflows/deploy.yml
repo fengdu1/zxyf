@@ -1,0 +1,76 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ===== 后端构建 =====
+      - name: Setup JDK 26
+        uses: actions/setup-java@v4
+        with:
+          java-version: '26'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build backend jar
+        working-directory: ./backend
+        run: mvn clean package -DskipTests
+
+      # ===== 前端构建 =====
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
+
+      # ===== 上传后端 jar =====
+      - name: Copy backend jar to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "backend/target/zxyf-sys-0.0.1-SNAPSHOT.jar"
+          target: "/opt/container-deploy/backend/"
+          strip_components: 2    # 去掉 backend/target/ 两层前缀
+
+      # ===== 上传前端 dist =====
+      - name: Copy frontend to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "frontend/dist/*"
+          target: "/opt/container-deploy/nginx/html/"
+          strip_components: 1
+
+      # ===== 执行服务器端部署脚本 =====
+      - name: Execute deploy script
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            chmod +x /opt/container-deploy/deploy.sh
+            /opt/container-deploy/deploy.sh
