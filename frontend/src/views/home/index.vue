@@ -13,6 +13,7 @@ const stats = [
       <div class="hero-text">
         <h2 class="hero-title">你好呀，欢迎回来 👋</h2>
         <p class="hero-desc">愿你今天的教学与学习都充满阳光与元气！</p>
+        <p class="hero-desc">祝你今天有好的学习效果！</p>
       </div>
       <span class="hero-emoji">☁️</span>
     </section>
